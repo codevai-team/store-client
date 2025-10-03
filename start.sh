@@ -23,4 +23,9 @@ nginx -g "daemon on;" &
 
 # Запускаем Next.js приложение
 echo "⚡ Запускаем Next.js приложение..."
-exec node server.js
+if [ -f "server.js" ]; then
+    exec node server.js
+else
+    echo "❌ Файл server.js не найден. Запускаем через npm start..."
+    exec npm start
+fi

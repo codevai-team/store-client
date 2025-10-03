@@ -37,9 +37,9 @@ WORKDIR /app
 RUN apk add --no-cache nodejs npm
 
 # Копируем собранное приложение
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 # Копируем продакшн зависимости
 COPY --from=prod-deps /app/node_modules ./node_modules

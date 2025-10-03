@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Копируем файлы зависимостей
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Этап сборки
 FROM base AS builder
@@ -20,8 +20,14 @@ COPY . .
 RUN npx prisma generate
 
 # Собираем приложение
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
+
+# Продакшн зависимости
+FROM base AS prod-deps
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production && npm cache clean --force
 
 # Продакшн этап с nginx
 FROM nginx:alpine AS runner
@@ -35,10 +41,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Копируем продакшн зависимости
+COPY --from=prod-deps /app/node_modules ./node_modules
+
 # Копируем Prisma схему и генерируем клиент
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Копируем конфигурацию nginx
 COPY nginx.conf /etc/nginx/nginx.conf

@@ -43,12 +43,16 @@ export default function ReviewModal({
 
     if (!formData.clientName.trim()) {
       newErrors.clientName = t.enterNameError
+    } else if (formData.clientName.trim().length > 20) {
+      newErrors.clientName = 'Имя не должно превышать 20 символов'
     }
 
     if (!formData.text.trim()) {
       newErrors.text = t.writeReviewError
     } else if (formData.text.trim().length < 10) {
       newErrors.text = t.minimumLengthError
+    } else if (formData.text.trim().length > 200) {
+      newErrors.text = 'Отзыв не должен превышать 200 символов'
     }
 
     if (formData.rating === 0) {
@@ -201,12 +205,17 @@ export default function ReviewModal({
             <input
               type="text"
               value={formData.clientName}
-              onChange={(e) => handleInputChange('clientName', e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 20) {
+                  handleInputChange('clientName', e.target.value)
+                }
+              }}
               className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 bg-white placeholder-gray-500 ${
                 errors.clientName ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder={t.enterYourName}
               disabled={isLoading}
+              maxLength={20}
             />
             {errors.clientName && (
               <p className="mt-1 text-sm text-red-600">{errors.clientName}</p>
@@ -220,13 +229,18 @@ export default function ReviewModal({
             </label>
             <textarea
               value={formData.text}
-              onChange={(e) => handleInputChange('text', e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 200) {
+                  handleInputChange('text', e.target.value)
+                }
+              }}
               rows={4}
               className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none text-gray-900 bg-white placeholder-gray-500 ${
                 errors.text ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder={t.shareImpressions}
               disabled={isLoading}
+              maxLength={200}
             />
             <div className="flex justify-between items-center mt-1">
               {errors.text ? (
@@ -235,7 +249,7 @@ export default function ReviewModal({
                 <p className="text-xs text-gray-500">{t.minimumCharacters}</p>
               )}
               <p className="text-xs text-gray-400">
-                {formData.text.length}/500
+                {formData.text.length}/200
               </p>
             </div>
           </div>

@@ -119,11 +119,10 @@ export default function CartPageClient() {
   }
 
 
-  const { subtotal, deliveryFee, total } = useMemo(() => {
+  const { subtotal, total } = useMemo(() => {
     const subtotal = getTotalPrice()
-    const deliveryFee = subtotal > 2000 ? 0 : 200
-    const total = subtotal + deliveryFee
-    return { subtotal, deliveryFee, total }
+    const total = subtotal // Убираем стоимость доставки
+    return { subtotal, total }
   }, [getTotalPrice])
 
   // Показываем скелетон во время загрузки
@@ -217,12 +216,6 @@ export default function CartPageClient() {
                 <span>{subtotal.toLocaleString()} сом</span>
               </div>
               
-              <div className="flex justify-between text-gray-600">
-                <span>{t.deliveryFee}</span>
-                <span className={deliveryFee === 0 ? 'text-green-600' : ''}>
-                  {deliveryFee === 0 ? 'Бесплатно' : `${deliveryFee.toLocaleString()} сом`}
-                </span>
-              </div>
               
               <div className="border-t border-gray-200 pt-3">
                 <div className="flex justify-between text-lg font-semibold text-gray-900">

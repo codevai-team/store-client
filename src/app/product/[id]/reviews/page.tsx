@@ -50,6 +50,7 @@ export default function ProductReviewsPage() {
   const [userReviewId, setUserReviewId] = useState<string | null>(null)
   const [userReviewData, setUserReviewData] = useState<{ clientName: string; text: string; rating: number } | null>(null)
   const [isEditMode, setIsEditMode] = useState(false)
+  const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     const fetchData = async () => {
@@ -247,6 +248,45 @@ export default function ProductReviewsPage() {
     )
   }
 
+  const toggleReviewExpansion = (reviewId: string) => {
+    setExpandedReviews(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(reviewId)) {
+        newSet.delete(reviewId)
+      } else {
+        newSet.add(reviewId)
+      }
+      return newSet
+    })
+  }
+
+  const renderReviewText = (text: string, reviewId: string) => {
+    const isExpanded = expandedReviews.has(reviewId)
+    const shouldTruncate = text.length > 100
+
+    if (!shouldTruncate || isExpanded) {
+      return (
+        <p className="text-gray-700 leading-relaxed break-words overflow-wrap-anywhere">
+          {text}
+        </p>
+      )
+    }
+
+    return (
+      <div>
+        <p className="text-gray-700 leading-relaxed break-words overflow-wrap-anywhere">
+          {text.substring(0, 100)}...
+        </p>
+        <button
+          onClick={() => toggleReviewExpansion(reviewId)}
+          className="text-orange-500 hover:text-orange-600 text-sm font-medium mt-1"
+        >
+          читать далее
+        </button>
+      </div>
+    )
+  }
+
   if (loading) {
     return (
       <AppLayout showHeader={false} showBottomNav={true}>
@@ -357,7 +397,7 @@ export default function ProductReviewsPage() {
           <div className="space-y-6">
             {/* Отзыв пользователя (если есть) */}
             {userReviewId && userReviewData && (
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border-2 border-blue-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border-2 border-blue-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 max-w-full overflow-hidden">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <h4 className="font-semibold text-gray-900 text-base">
@@ -378,9 +418,7 @@ export default function ProductReviewsPage() {
                     </button>
                   </div>
                 </div>
-                <p className="text-gray-700 leading-relaxed">
-                  {userReviewData.text}
-                </p>
+                {renderReviewText(userReviewData.text, userReviewId || 'user-review')}
               </div>
             )}
 
@@ -388,7 +426,7 @@ export default function ProductReviewsPage() {
             {reviews
               .filter(review => !userReviewId || review.id !== userReviewId)
               .map((review) => (
-                <div key={review.id} className="bg-white p-6 rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300">
+                <div key={review.id} className="bg-white p-6 rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 max-w-full overflow-hidden">
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h4 className="font-semibold text-gray-900 text-base">
@@ -400,9 +438,7 @@ export default function ProductReviewsPage() {
                       {review.rating} из 5
                     </div>
                   </div>
-                  <p className="text-gray-700 leading-relaxed">
-                    {review.text}
-                  </p>
+                  {renderReviewText(review.text, review.id)}
                 </div>
               ))}
           </div>

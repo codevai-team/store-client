@@ -32,8 +32,8 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center">
               <Image 
-                src="/client-store-logo.svg" 
-                alt="Client Store" 
+                src="/unimark-logo.svg" 
+                alt="Unimark" 
                 width={120}
                 height={40}
                 className="h-10 w-auto filter brightness-0 invert"
@@ -106,7 +106,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <span className="text-gray-300 text-sm">info@storeclient.kg</span>
+                <span className="text-gray-300 text-sm">info@unimark.kg</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
@@ -121,7 +121,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex justify-center items-center">
           <div className="text-gray-400 text-sm text-center">
-            © 2025 Store Client. {t.allRightsReserved}
+            © 2025 Unimark. {t.allRightsReserved}
           </div>
         </div>
       </div>

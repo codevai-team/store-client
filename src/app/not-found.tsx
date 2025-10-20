@@ -6,7 +6,7 @@ import { Home, ArrowLeft, Search } from 'lucide-react'
 
 export default function NotFound() {
   useEffect(() => {
-    document.title = 'Страница не найдена - 404 | Store Client'
+    document.title = 'Страница не найдена - 404 | Unimark'
   }, [])
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center px-4">

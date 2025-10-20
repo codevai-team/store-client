@@ -40,7 +40,7 @@ export default async function Image() {
               marginBottom: 20,
             }}
           >
-            Store Client
+            Unimark
           </div>
           <div
             style={{

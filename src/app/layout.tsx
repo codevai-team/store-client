@@ -22,20 +22,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Store Client - Интернет-магазин качественной одежды",
-    template: "%s | Store Client"
+    default: "Unimark",
+    template: "%s | Unimark"
   },
   description: "Интернет-магазин качественной одежды в Кыргызстане. Широкий ассортимент футболок, брюк, платьев и курток. Быстрая доставка, гарантия качества.",
   keywords: ["одежда", "интернет-магазин", "Кыргызстан", "футболки", "брюки", "платья", "куртки", "мода", "стиль", "качественная одежда"],
-  authors: [{ name: "Store Client Team" }],
-  creator: "Store Client",
-  publisher: "Store Client",
+  authors: [{ name: "Codev team" }],
+  creator: "Codev",
+  publisher: "Codev",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://storeclient.kg'),
+  metadataBase: new URL('https://unimark.kg'),
   alternates: {
     canonical: '/',
     languages: {
@@ -44,16 +44,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Store Client - Интернет-магазин качественной одежды",
+    title: "Unimark - Интернет-магазин качественной одежды",
     description: "Интернет-магазин качественной одежды в Кыргызстане. Широкий ассортимент, быстрая доставка, гарантия качества.",
-    url: 'https://storeclient.kg',
-    siteName: 'Store Client',
+    url: 'https://unimark.kg',
+    siteName: 'Unimark',
     images: [
       {
-        url: '/client-store-logo.svg',
+        url: '/unimark-logo.svg',
         width: 1200,
         height: 630,
-        alt: 'Store Client - Интернет-магазин одежды',
+        alt: 'Unimark - Интернет-магазин одежды',
       },
     ],
     locale: 'ru_RU',
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Store Client - Интернет-магазин качественной одежды",
+    title: "Unimark - Интернет-магазин качественной одежды",
     description: "Интернет-магазин качественной одежды в Кыргызстане. Широкий ассортимент, быстрая доставка, гарантия качества.",
-    images: ['/client-store-logo.svg'],
+    images: ['/unimark-logo.svg'],
   },
   robots: {
     index: true,
@@ -77,9 +77,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/client-store-logo.ico",
-    shortcut: "/logo-for-pwa.svg",
-    apple: "/logo-for-pwa.svg",
+    icon: "/unimark-logo.svg",
+    shortcut: "/unimark-logo.svg",
+    apple: "/unimark-logo.svg",
   },
   verification: {
     google: 'google-site-verification-code',

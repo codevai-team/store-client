@@ -68,7 +68,7 @@ const CONTACT_INFO_CONFIG = [
   {
     id: 2,
     icon: Mail,
-    title: 'support@storeclient.kg',
+    title: 'support@unimark.kg',
     subtitleKey: 'responseWithin24h'
   }
 ]

@@ -33,8 +33,8 @@ public
 
 ## Запуск
 ```bash
-docker build -t store-client .
-docker run -d --name store-client -p 80:80 --env-file .env store-client
+docker build -t unimark .
+docker run -d --name unimark -p 80:80 --env-file .env unimark
 ```
 
 Теперь сборка должна пройти без ошибок!

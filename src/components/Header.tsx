@@ -191,8 +191,8 @@ export default function Header({ onFilterClick, onSearch }: HeaderProps) {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image 
-                src="/client-store-logo.svg" 
-                alt="Client Store" 
+                src="/unimark-logo.svg" 
+                alt="Unimark" 
                 width={120}
                 height={48}
                 className="h-12 w-auto hover:scale-105 transition-transform duration-200"
@@ -311,8 +311,8 @@ export default function Header({ onFilterClick, onSearch }: HeaderProps) {
           }`}>
             <Link href="/" className="flex items-center">
               <Image 
-                src="/client-store-logo.svg" 
-                alt="Client Store" 
+                src="/unimark-logo.svg" 
+                alt="Unimark" 
                 width={84}
                 height={28}
                 className="h-7 w-auto hover:scale-105 transition-transform duration-200"

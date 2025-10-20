@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Store Client - Интернет-магазин одежды',
-    short_name: 'Store Client',
+    name: 'Unimark - Интернет-магазин одежды',
+    short_name: 'Unimark',
     description: ' ',
     start_url: '/',
     display: 'standalone',
@@ -14,17 +14,17 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: 'ru',
     icons: [
       {
-        src: '/client-store-logo.ico',
+        src: '/unimark-logo.svg',
         sizes: '16x16',
         type: 'image/x-icon',
       },
       {
-        src: '/client-store-logo.ico',
+        src: '/unimark-logo.svg',
         sizes: '32x32',
         type: 'image/x-icon',
       },
       {
-        src: '/logo-for-pwa.svg',
+        src: '/unimark-logo.svg',
         sizes: 'any',
         type: 'image/svg+xml',
       },

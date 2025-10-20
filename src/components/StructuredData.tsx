@@ -15,15 +15,15 @@ export default function StructuredData({ data }: StructuredDataProps) {
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Store Client",
+  "name": "Unimark",
   "description": "Интернет-магазин качественной одежды в Кыргызстане",
-  "url": "https://storeclient.kg",
-  "logo": "https://storeclient.kg/client-store-logo.svg",
+  "url": "https://unimark.kg",
+  "logo": "https://unimark.kg/unimark-logo.svg",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+996-555-123-456",
     "contactType": "customer service",
-    "email": "support@storeclient.kg",
+    "email": "support@unimark.kg",
     "availableLanguage": ["Russian", "Kyrgyz"]
   },
   "address": {
@@ -32,22 +32,22 @@ export const organizationSchema = {
     "addressLocality": "Бишкек"
   },
   "sameAs": [
-    "https://www.facebook.com/storeclient",
-    "https://www.instagram.com/storeclient"
+    "https://www.facebook.com/unimark",
+    "https://www.instagram.com/unimark"
   ]
 }
 
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Store Client",
-  "url": "https://storeclient.kg",
+  "name": "Unimark",
+  "url": "https://unimark.kg",
   "description": "Интернет-магазин качественной одежды в Кыргызстане",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://storeclient.kg/?search={search_term_string}"
+      "urlTemplate": "https://unimark.kg/?search={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -60,7 +60,7 @@ export const breadcrumbSchema = (items: Array<{ name: string; url: string }>) =>
     "@type": "ListItem",
     "position": index + 1,
     "name": item.name,
-    "item": `https://storeclient.kg${item.url}`
+    "item": `https://unimark.kg${item.url}`
   }))
 })
 
@@ -91,7 +91,7 @@ export const productSchema = (product: {
     "availability": `https://schema.org/${product.availability}`,
     "seller": {
       "@type": "Organization",
-      "name": "Store Client"
+      "name": "Unimark"
     }
   }
 })

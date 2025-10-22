@@ -89,10 +89,16 @@ export const productSchema = (product: {
     "price": product.price,
     "priceCurrency": product.currency,
     "availability": `https://schema.org/${product.availability}`,
+    "url": `https://unimark.kg/product/${product.name}`,
     "seller": {
       "@type": "Organization",
-      "name": "Unimark"
+      "name": "Unimark",
+      "url": "https://unimark.kg"
     }
+  },
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "Unimark"
   }
 })
 

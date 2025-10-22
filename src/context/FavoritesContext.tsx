@@ -6,6 +6,7 @@ import { validateFavoritesCookie, addFavoriteToCookie, removeFavoriteFromCookie,
 interface FavoriteItem {
   id: string
   name: string
+  description?: string | null
   price: number
   imageUrl?: string[] | null
   category: {

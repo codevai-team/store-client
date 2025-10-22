@@ -144,7 +144,7 @@ function HomeContent() {
         />
         
         {/* Products from Database */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 pb-20 md:pb-12">
+        <div className="max-w-7xl mx-auto px-1 md:px-4 lg:px-6 pb-20 md:pb-12">
           <div className="mb-8">
             <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
               {getProductsTitle()}

@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ProductPageClient from './ProductPageClient'
 import StructuredData, { productSchema, breadcrumbSchema } from '@/components/StructuredData'
+import { apiRequest } from '@/lib/api'
 
 interface Product {
   id: string
@@ -43,7 +44,7 @@ interface Product {
 
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/products/${id}`, {
+    const response = await apiRequest(`/api/products/${id}`, {
       cache: 'no-store' // Всегда получаем свежие данные для SEO
     })
     
@@ -196,7 +197,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
 // Генерируем статические параметры для популярных товаров (опционально)
 export async function generateStaticParams() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/products?limit=50`, {
+    const response = await apiRequest('/api/products?limit=50', {
       cache: 'no-store'
     })
     

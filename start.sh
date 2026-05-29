@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Скрипт запуска для Next.js приложения с nginx
+# Скрипт запуска для Next.js приложения
 
 echo "🚀 Запуск Unimark..."
 
@@ -16,10 +16,6 @@ npx prisma db push --accept-data-loss || {
     echo "❌ Ошибка подключения к базе данных. Проверьте DATABASE_URL"
     exit 1
 }
-
-# Запускаем nginx в фоне
-echo "🌐 Запускаем nginx..."
-nginx -g "daemon on;" &
 
 # Запускаем Next.js приложение
 echo "⚡ Запускаем Next.js приложение..."

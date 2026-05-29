@@ -1,4 +1,4 @@
-# Многоэтапная сборка для Next.js приложения с nginx
+# Многоэтапная сборка для Next.js приложения
 FROM node:18-alpine AS base
 
 # Установка зависимостей только для сборки
@@ -23,49 +23,41 @@ RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# Продакшн зависимости
-FROM base AS prod-deps
-WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm ci --only=production && npm cache clean --force
-
-# Продакшн этап с nginx
-FROM nginx:alpine AS runner
+# Продакшн этап
+FROM base AS runner
 WORKDIR /app
 
-# Устанавливаем Node.js для запуска Next.js сервера
-RUN apk add --no-cache nodejs npm
-
-# Копируем собранное приложение
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-# Копируем public папку из исходного кода
-COPY public/ ./public/
-
-# Копируем продакшн зависимости
-COPY --from=prod-deps /app/node_modules ./node_modules
-
-# Копируем Prisma схему и генерируем клиент
-COPY --from=builder /app/prisma ./prisma
-
-# Копируем конфигурацию nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Создаем пользователя для безопасности
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Устанавливаем права доступа
-RUN chown -R nextjs:nodejs /app
-USER nextjs
+# Копируем public папку
+COPY --from=builder /app/public ./public
 
-# Открываем порты
-EXPOSE 3000 80
+# Копируем собранное standalone приложение
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Создаем скрипт запуска
+# Копируем Prisma схему
+COPY --from=builder /app/prisma ./prisma
+
+# Копируем скрипт запуска
 COPY --chown=nextjs:nodejs start.sh ./
 RUN chmod +x start.sh
 
-# Запускаем приложение
+# Устанавливаем права доступа
+RUN chown -R nextjs:nodejs /app
+
+USER nextjs
+
+# Next.js слушает на порту 3000 по умолчанию
+EXPOSE 3000
+
+# Устанавливаем порт
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
 CMD ["./start.sh"]

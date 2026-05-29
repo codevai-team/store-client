@@ -8,8 +8,23 @@ export function getApiBaseUrl(): string {
     return window.location.origin
   }
   
-  // На сервере — обращаемся к самому себе через localhost
-  // Это необходимо, т.к. внешний домен может быть недоступен изнутри контейнера
+  // На сервере проверяем переменные окружения
+  // 1. API_URL - серверная переменная для продакшена (runtime)
+  if (process.env.API_URL) {
+    return process.env.API_URL
+  }
+  
+  // 2. NEXT_PUBLIC_API_URL - публичный URL (build time)
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL
+  }
+  
+  // 3. Vercel автоматически предоставляет VERCEL_URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  
+  // 4. Fallback на localhost для локальной разработки
   const port = process.env.PORT || '3000'
   return `http://localhost:${port}`
 }

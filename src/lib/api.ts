@@ -8,21 +8,10 @@ export function getApiBaseUrl(): string {
     return window.location.origin
   }
   
-  // На сервере используем переменные окружения
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL
-  }
-  
-  if (process.env.NEXTAUTH_URL) {
-    return process.env.NEXTAUTH_URL
-  }
-  
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-  
-  // Fallback для продакшена
-  return 'https://unimark.kg'
+  // На сервере — обращаемся к самому себе через localhost
+  // Это необходимо, т.к. внешний домен может быть недоступен изнутри контейнера
+  const port = process.env.PORT || '3000'
+  return `http://localhost:${port}`
 }
 
 /**

@@ -4,6 +4,8 @@ import ProductPageClient from './ProductPageClient'
 import StructuredData, { productSchema, breadcrumbSchema } from '@/components/StructuredData'
 import { apiRequest } from '@/lib/api'
 
+export const dynamic = 'force-dynamic'
+
 interface Product {
   id: string
   name: string
@@ -194,24 +196,4 @@ export default async function ProductPage({ params }: { params: { id: string } }
   )
 }
 
-// Генерируем статические параметры для популярных товаров (опционально)
-export async function generateStaticParams() {
-  try {
-    const response = await apiRequest('/api/products?limit=50', {
-      cache: 'no-store'
-    })
-    
-    if (!response.ok) {
-      return []
-    }
-    
-    const products = await response.json()
-    
-    return products.map((product: Product) => ({
-      id: product.id,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
-}
+// Страница полностью динамическая - данные всегда свежие
